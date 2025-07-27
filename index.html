@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FunTube for Kids</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffe4f2;
+      font-family: 'Baloo 2', cursive;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      color: #ff4081;
+      font-size: 3rem;
+      margin-top: 20px;
+    }
+
+    #aiAssistant {
+      background-color: #d1faff;
+      border-radius: 20px;
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 0 15px #b2ebf2;
+    }
+
+    #aiAssistant img {
+      width: 200px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    #aiText {
+      font-size: 1.5rem;
+      color: #00796b;
+    }
+
+    #chatbox {
+      margin-top: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      border: none;
+      background-color: #ff80ab;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #f50057;
+    }
+
+    iframe {
+      margin: 15px;
+      border: 4px solid #f06292;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Welcome to FunTube for Kids! 🎉</h1>
+
+  <!-- AI Assistant Visual -->
+  <div id="aiAssistant">
+    <img src="panda.png" alt="Panda Buddy" />
+    <p id="aiText">Hi little stars! I'm your panda buddy! What do you want to watch today?</p>
+  </div>
+
+  <!-- Voice Welcome -->
+  <audio id="aiVoice" autoplay>
+    <source src="voice.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- AI Buttons -->
+  <div id="chatbox">
+    <button onclick="respond('cartoons')">Cartoons</button>
+    <button onclick="respond('rhymes')">Rhymes</button>
+    <button onclick="respond('learning')">Learning</button>
+  </div>
+
+  <!-- Videos Will Appear Here -->
+  <div id="videoArea"></div>
+
+  <script>
+    const videoLinks = {
+      cartoons: [
+        "https://www.youtube.com/embed/hVx3BUn9s9k",
+        "https://www.youtube.com/embed/zjY9C6N_E5k",
+        "https://www.youtube.com/embed/QvCkTz8o_YI",
+        "https://www.youtube.com/embed/oTg40EMUzvg"
+      ],
+      rhymes: [
+        "https://www.youtube.com/embed/hq3yfQnllfQ",
+        "https://www.youtube.com/embed/Yr5Zmz8j2Z4",
+        "https://www.youtube.com/embed/EpI4A2xM3EA",
+        "https://www.youtube.com/embed/zWfX5jeF6kM"
+      ],
+      learning: [
+        "https://www.youtube.com/embed/2mPtSJ5pD-s",
+        "https://www.youtube.com/embed/KdQ-dEGGM0A",
+        "https://www.youtube.com/embed/HfZWq6YVdx4",
+        "https://www.youtube.com/embed/0D-5z0NMZms"
+      ]
+    };
+
+    function respond(type) {
+      const chatText = document.getElementById('aiText');
+      const videoArea = document.getElementById('videoArea');
+
+      chatText.innerText = `Yay! Let's watch some ${type}! 🎬`;
+
+      videoArea.innerHTML = '';
+      videoLinks[type].forEach(link => {
+        const iframe = document.createElement('iframe');
+        iframe.width = "300";
+        iframe.height = "200";
+        iframe.src = link;
+        iframe.allowFullscreen = true;
+        videoArea.appendChild(iframe);
+      });
+    }
+  </script>
+</body>
+</html>
