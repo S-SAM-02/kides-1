@@ -1,134 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>FunTube for Kids</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background-color: #ffe4f2;
-      font-family: 'Baloo 2', cursive;
-      text-align: center;
-      color: #333;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>FunTube for Kids</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #ffe4f2;
+        font-family: "Baloo 2", cursive;
+        text-align: center;
+        color: #333;
+      }
 
-    h1 {
-      color: #ff4081;
-      font-size: 3rem;
-      margin-top: 20px;
-    }
+      h1 {
+        color: #ff4081;
+        font-size: 3rem;
+        margin-top: 20px;
+      }
 
-    #aiAssistant {
-      background-color: #d1faff;
-      border-radius: 20px;
-      width: 80%;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      box-shadow: 0 0 15px #b2ebf2;
-    }
+      #aiAssistant {
+        background-color: #d1faff;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 0 15px #b2ebf2;
+      }
 
-    #aiAssistant img {
-      width: 200px;
-      height: auto;
-      margin-bottom: 10px;
-    }
+      #aiAssistant img {
+        width: 200px;
+        height: auto;
+        margin-bottom: 10px;
+      }
 
-    #aiText {
-      font-size: 1.5rem;
-      color: #00796b;
-    }
+      #aiText {
+        font-size: 1.5rem;
+        color: #00796b;
+      }
 
-    #chatbox {
-      margin-top: 20px;
-    }
+      #chatbox {
+        margin-top: 20px;
+      }
 
-    button {
-      margin: 10px;
-      padding: 14px 30px;
-      font-size: 1.2rem;
-      border-radius: 12px;
-      border: none;
-      background-color: #ff80ab;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+      button {
+        margin: 10px;
+        padding: 14px 30px;
+        font-size: 1.2rem;
+        border-radius: 12px;
+        border: none;
+        background-color: #ff80ab;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
 
-    button:hover {
-      background-color: #f50057;
-    }
+      button:hover {
+        background-color: #f50057;
+      }
 
-    iframe {
-      margin: 15px;
-      border: 4px solid #f06292;
-      border-radius: 15px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🎉 Welcome to FunTube for Kids! 🎉</h1>
+      iframe {
+        margin: 15px;
+        border: 4px solid #f06292;
+        border-radius: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎉 Welcome to FunTube for Kids! 🎉</h1>
 
-  <!-- AI Assistant Visual -->
-  <div id="aiAssistant">
-    <img src="panda.png" alt="Panda Buddy" />
-    <p id="aiText">Star's What do you want to watch today?</p>
-  </div>
+    <!-- AI Assistant Visual -->
+    <div id="aiAssistant">
+      <img src="panda.png" alt="Panda Buddy" />
+      <p id="aiText"><H2>Star's What do you want to watch today?</H2></p>
+    </div>
 
-  <!-- AI Voice Assistant -->
-<audio id="aiVoice" aria-label="AI Voice Assistant Welcome" autoplay>
-  <source src="voice.mp3" type="audio/mpeg">
-  Your browser does not support the audio element. This is the AI Voice Assistant.
-</audio>
+    <!-- Voice Playback -->
+  <audio id="pandaVoice" autoplay>
+    <source src="voice.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-  <!-- AI Buttons -->
-  <div id="chatbox">
-    <button onclick="respond('cartoons')">Cartoons</button>
-    <button onclick="respond('rhymes')">Rhymes</button>
-    <button onclick="respond('learning')">Learning</button>
-  </div>
+    <!-- AI Buttons -->
+    <div id="chatbox">
+      <button onclick="respond('cartoons')">Cartoons</button>
+      <button onclick="respond('rhymes')">Rhymes</button>
+      <button onclick="respond('learning')">Learning</button>
+    </div>
 
-  <!-- Videos Will Appear Here -->
-  <div id="videoArea"></div>
+    <!-- Videos Will Appear Here -->
+    <div id="videoArea"></div>
 
- <script>
-    const videoLinks = {
-      cartoons: [
-        "https://www.youtube.com/embed/MtN1YnoL46Q", // Peppa Pig - The Balloon Ride
-        "https://www.youtube.com/embed/2S__fbCGwOM", // Masha and The Bear - Recipe for Disaster
-        "https://www.youtube.com/embed/9xv-FjbXaqk", // Paw Patrol - Pups Save the Penguins
-        "https://www.youtube.com/embed/2Xc9gXyf2G4"  // Cocomelon - Yes Yes Vegetables Song
-      ],
-     rhymes: [
-        "https://www.youtube.com/embed/Sb5aq5HcS1A", // Cocomelon - Wheels on the Bus
-        "https://www.youtube.com/embed/yCjJyiqpAuU", // Baby Shark Dance
-        "https://www.youtube.com/embed/75p-N9YKqNo", // Johny Johny Yes Papa
-        "https://www.youtube.com/embed/0peZ5AN5vs8"  // Five Little Ducks
-      ],
-      learning: [
-        "https://www.youtube.com/embed/8yteMugRAc0", // Counting 1-20 - Cocomelon
-        "https://www.youtube.com/embed/36IBDpTRVNE", // ABC Song - Cocomelon
-        "https://www.youtube.com/embed/1I5ZMmrOfnA", // Colors Song - Cocomelon
-        "https://www.youtube.com/embed/8v8Vo6M8p1c"  // Shapes Song - Cocomelon
-      ],
-      ]
-    };
-    function respond(type) {
-      const chatText = document.getElementById('aiText');
-      const videoArea = document.getElementById('videoArea');
+    <script>
+      const videoLinks = {
+        cartoons: [
+          "https://www.youtube.com/embed/MtN1YnoL46Q", // Peppa Pig - The Balloon Ride
+          "https://www.youtube.com/embed/2S__fbCGwOM", // Masha and The Bear - Recipe for Disaster
+          "https://www.youtube.com/embed/9xv-FjbXaqk", // Paw Patrol - Pups Save the Penguins
+          "https://www.youtube.com/embed/2Xc9gXyf2G4"  // Cocomelon - Yes Yes Vegetables Song
+        ],
+       rhymes: [
+          "https://www.youtube.com/embed/Sb5aq5HcS1A", // Cocomelon - Wheels on the Bus
+          "https://www.youtube.com/embed/yCjJyiqpAuU", // Baby Shark Dance
+          "https://www.youtube.com/embed/75p-N9YKqNo", // Johny Johny Yes Papa
+          "https://www.youtube.com/embed/0peZ5AN5vs8"  // Five Little Ducks
+        ],
+        learning: [
+          "https://www.youtube.com/embed/8yteMugRAc0", // Counting 1-20 - Cocomelon
+          "https://www.youtube.com/embed/36IBDpTRVNE", // ABC Song - Cocomelon
+          "https://www.youtube.com/embed/1I5ZMmrOfnA", // Colors Song - Cocomelon
+          "https://www.youtube.com/embed/8v8Vo6M8p1c"  // Shapes Song - Cocomelon
+        ],
+        ]
+      };
+      function respond(type) {
+        const chatText = document.getElementById('aiText');
+        const videoArea = document.getElementById('videoArea');
 
-      chatText.innerText = `Yay! Let's watch some ${type}! 🎬`;
+        chatText.innerText = `Yay! Let's watch some ${type}! 🎬`;
 
-      videoArea.innerHTML = '';
-      videoLinks[type].forEach(link => {
-        const iframe = document.createElement('iframe');
-        iframe.width = "300";
-        iframe.height = "200";
-        iframe.src = link;
-        iframe.allowFullscreen = true;
-        videoArea.appendChild(iframe);
-      });
-    }
-  </script>
-</body>
+        videoArea.innerHTML = '';
+        videoLinks[type].forEach(link => {
+          const iframe = document.createElement('iframe');
+          iframe.width = "300";
+          iframe.height = "200";
+          iframe.src = link;
+          iframe.allowFullscreen = true;
+          videoArea.appendChild(iframe);
+        });
+      }
+    </script>
+  </body>
 </html>
