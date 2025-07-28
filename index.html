@@ -72,14 +72,14 @@
   <!-- AI Assistant Visual -->
   <div id="aiAssistant">
     <img src="panda.png" alt="Panda Buddy" />
-    <p id="aiText">Hi little stars! I'm your panda buddy! What do you want to watch today?</p>
+    <p id="aiText">Star's What do you want to watch today?</p>
   </div>
 
-  <!-- Voice Welcome -->
-  <audio id="aiVoice" autoplay>
-    <source src="voice.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <!-- AI Voice Assistant -->
+<audio id="aiVoice" aria-label="AI Voice Assistant Welcome" autoplay>
+  <source src="voice.mp3" type="audio/mpeg">
+  Your browser does not support the audio element. This is the AI Voice Assistant.
+</audio>
 
   <!-- AI Buttons -->
   <div id="chatbox">
@@ -91,28 +91,28 @@
   <!-- Videos Will Appear Here -->
   <div id="videoArea"></div>
 
-  <script>
+ <script>
     const videoLinks = {
       cartoons: [
-        "https://youtu.be/uaPH6lscXAA?si=qoJfoKj9dlYsPWB5",
-        "https://youtu.be/TPvTK-S_VR4?si=bcGWHXSi-WSZh-4X",
-        "https://youtu.be/gm84HwG9F5I?si=F4c4j_TXq4QWZq1I",
-        "https://youtu.be/ibyq-P4fCp4?si=HBY5PpPhFIhvh-0K"
+        "https://www.youtube.com/embed/MtN1YnoL46Q", // Peppa Pig - The Balloon Ride
+        "https://www.youtube.com/embed/2S__fbCGwOM", // Masha and The Bear - Recipe for Disaster
+        "https://www.youtube.com/embed/9xv-FjbXaqk", // Paw Patrol - Pups Save the Penguins
+        "https://www.youtube.com/embed/2Xc9gXyf2G4"  // Cocomelon - Yes Yes Vegetables Song
       ],
-      rhymes: [
-        "https://youtu.be/e_04ZrNroTo?si=CN_YO8pIy84Evmvm",
-        "https://youtu.be/zDOjJIwjHnc?si=7lTN9ec9lAKPOTUM",
-        "https://youtu.be/drkOBuiGPCM?si=Tu7qpT5mjRUPVihu",
-        "https://youtu.be/6rRRAVSilss?si=tRbpgz1DQ7DqbzRu"
+     rhymes: [
+        "https://www.youtube.com/embed/Sb5aq5HcS1A", // Cocomelon - Wheels on the Bus
+        "https://www.youtube.com/embed/yCjJyiqpAuU", // Baby Shark Dance
+        "https://www.youtube.com/embed/75p-N9YKqNo", // Johny Johny Yes Papa
+        "https://www.youtube.com/embed/0peZ5AN5vs8"  // Five Little Ducks
       ],
       learning: [
-        "https://youtu.be/kIoD2MPKVrw?si=eDzGh0t3sHW_ZP6g",
-        "https://youtu.be/7HUW_aukApo?si=tCqF07TXjkYhdpW1",
-        "https://youtu.be/XhSvTHsNtVg?si=bZhytF1LhZtgQmka",
-        "https://youtu.be/XhSvTHsNtVg?si=E89Drbop0BWHmfxA"
+        "https://www.youtube.com/embed/8yteMugRAc0", // Counting 1-20 - Cocomelon
+        "https://www.youtube.com/embed/36IBDpTRVNE", // ABC Song - Cocomelon
+        "https://www.youtube.com/embed/1I5ZMmrOfnA", // Colors Song - Cocomelon
+        "https://www.youtube.com/embed/8v8Vo6M8p1c"  // Shapes Song - Cocomelon
+      ],
       ]
     };
-
     function respond(type) {
       const chatText = document.getElementById('aiText');
       const videoArea = document.getElementById('videoArea');
