@@ -1,188 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>FunTube for Kids</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #ffe4f2;
-        font-family: "Baloo 2", cursive;
-        text-align: center;
-        color: #333;
-      }
+const videoLinks = {
+  cartoons: [
+    "https://www.youtube.com/embed/MtN1YnoL46Q",   // Peppa Pig – Balloon Ride
+    "https://www.youtube.com/embed/2S__fbCGwOM",   // Masha & The Bear – Recipe Disaster
+    "https://www.youtube.com/embed/9xv-FjbXaqk",   // Paw Patrol – Pups Save the Penguins
+    "https://www.youtube.com/embed/2Xc9gXyf2G4",   // CoComelon – Yes Yes Vegetables
+    "https://www.youtube.com/embed/R2cih2Rf28s",   // Masha & The Bear – Hocus‑Pocus
+    "https://www.youtube.com/embed/SwFu0nu3Y5c",   // PJ Masks – Power Heroes
+    "https://www.youtube.com/embed/Oo5dY1HMFZg",   // Bluey – Magic Xylophone
+    "https://www.youtube.com/embed/Fhw3Y7k9PNI",   // Blaze & Monster Machines – Contest
+    "https://www.youtube.com/embed/HWtuWzTnrOY",   // Paw Patrol – Flying Potatoes
+    "https://www.youtube.com/embed/8IprlLe6Z9A"    // Peppa Pig – Dominoes
+  ],
 
-      h1 {
-        color: #ff4081;
-        font-size: 3rem;
-        margin-top: 20px;
-      }
+  rhymes: [
+    "https://www.youtube.com/embed/Sb5aq5HcS1A",   // Wheels on the Bus – CoComelon
+    "https://www.youtube.com/embed/yCjJyiqpAuU",   // Baby Shark Dance – Pinkfong
+    "https://www.youtube.com/embed/75p-N9YKqNo",   // Johny Johny Yes Papa
+    "https://www.youtube.com/embed/0peZ5AN5vs8",   // Five Little Ducks – Super Simple
+    "https://www.youtube.com/embed/SjVb4NYCP70",   // Numbers 1‑20 – CoComelon :contentReference[oaicite:0]{index=0}
+    "https://www.youtube.com/embed/uCIsBFV87-U",   // ABC Song with Balloons – CoComelon :contentReference[oaicite:1]{index=1}
+    "https://www.youtube.com/embed/a9PpVo6b7z0",   // Numbers Song with Little Chicks – CoComelon :contentReference[oaicite:2]{index=2}
+    "https://www.youtube.com/embed/SwFu0nu3Y5c",   // CoComelon compilation (rhymes/general) :contentReference[oaicite:3]{index=3}
+    "https://www.youtube.com/embed/8qvHQIJ4Y3k",   // Peek A Boo + more – CoComelon :contentReference[oaicite:4]{index=4}
+    "https://www.youtube.com/embed/7i68cD70dEE"    // Learn Colors, ABCs & 123 + more :contentReference[oaicite:5]{index=5}
+  ],
 
-      #aiAssistant {
-        background-color: #d1faff;
-        border-radius: 20px;
-        width: 80%;
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 20px;
-        box-shadow: 0 0 15px #b2ebf2;
-      }
-
-      #aiAssistant img {
-        width: 200px;
-        height: auto;
-        margin-bottom: 10px;
-      }
-
-      #aiText {
-        font-size: 1.5rem;
-        color: #00796b;
-      }
-
-      #chatbox {
-        margin-top: 20px;
-      }
-
-      button {
-        margin: 10px;
-        padding: 14px 30px;
-        font-size: 1.2rem;
-        border-radius: 12px;
-        border: none;
-        background-color: #ff80ab;
-        color: white;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      button:hover {
-        background-color: #f50057;
-      }
-
-      iframe {
-        margin: 15px;
-        border: 4px solid #f06292;
-        border-radius: 15px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>🎉 Welcome to FunTube for Kids! 🎉</h1>
-
-    <!-- Place this just after <body> -->
-    <div id="menuBar">
-      <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
-      <div id="sideMenu" class="hidden"></div>
-    </div>
-
-    <!-- Add this before </body> -->
-    <script>
-      function toggleMenu() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("hidden");
-      }
-    </script>
-
-    <!-- AI Assistant Visual -->
-    <div id="aiAssistant">
-      <img src="panda.png" alt="Panda Buddy" />
-      <p id="aiText">Star's What do you want to watch today?</p>
-    </div>
-
-    <!-- Voice Playback -->
-    <audio id="pandaVoice" autoplay>
-      <source src="voice.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-
-    <!-- AI Buttons -->
-    <div id="chatbox">
-      <button onclick="respond('cartoons')">Cartoons</button>
-      <button onclick="respond('rhymes')">Rhymes</button>
-      <button onclick="respond('learning')">Learning</button>
-    </div>
-
-    <!-- Videos Will Appear Here -->
-    <div id="videoArea"></div>
-
-    <script>
-     function toggleMenu() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("hidden");
-      }
-
-      // Video links for each category
-      const videoLinks = {
-        cartoons: [
-          "https://www.youtube.com/embed/MtN1YnoL46Q", // Peppa Pig - The Balloon Ride
-          "https://www.youtube.com/embed/2S__fbCGwOM", // Masha and The Bear - Recipe for Disaster
-          "https://www.youtube.com/embed/9xv-FjbXaqk", // Paw Patrol - Pups Save the Penguins
-          "https://www.youtube.com/embed/2Xc9gXyf2G4", // Cocomelon - Yes Yes Vegetables Song
-        ],
-        rhymes: [
-          "https://www.youtube.com/embed/Sb5aq5HcS1A", // Cocomelon - Wheels on the Bus
-          "https://www.youtube.com/embed/yCjJyiqpAuU", // Baby Shark Dance
-          "https://www.youtube.com/embed/75p-N9YKqNo", // Johny Johny Yes Papa
-          "https://www.youtube.com/embed/0peZ5AN5vs8", // Five Little Ducks
-        ],
-        learning: [
-          "https://www.youtube.com/embed/8yteMugRAc0", // Counting 1-20 - Cocomelon
-          "https://www.youtube.com/embed/36IBDpTRVNE", // ABC Song - Cocomelon
-          "https://www.youtube.com/embed/1I5ZMmrOfnA", // Colors Song - Cocomelon
-          "https://www.youtube.com/embed/8v8Vo6M8p1c", // Shapes Song - Cocomelon
-        ],
-      };
-
-      function respond(type) {
-        const chatText = document.getElementById('aiText');
-        const videoArea = document.getElementById('videoArea');
-
-        chatText.innerText = `Yay! Let's watch some ${type}! 🎬`;
-
-        videoArea.innerHTML = '';
-        videoLinks[type].forEach(link => {
-          const iframe = document.createElement('iframe');
-          iframe.width = "300";
-          iframe.height = "200";
-          iframe.src = link;
-          iframe.allowFullscreen = true;
-          videoArea.appendChild(iframe);
-        });
-      }
-    </script>
-  </body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FunTube Games</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <img
-      src="kids-fun.png"
-      alt="Kids having fun"
-      style="width: 160px; margin-top: 60px"
-    />
-    <h1>🎮 Fun Games for Kids 🎮</h1>
-    <button class="game-btn" onclick="startColorMatch()">Color Match</button>
-    <button class="game-btn" onclick="startShapePop()">Shape Pop</button>
-    <button class="game-btn" onclick="startAlphabetCatcher()">
-      Alphabet Catcher
-    </button>
-    <button class="game-btn" onclick="startNumberPuzzle()">
-      Number Puzzle
-    </button>
-    <button class="game-btn" onclick="startMemoryFlip()">Memory Flip</button>
-    <button class="game-btn" onclick="startAnimalQuiz()">Animal Quiz</button>
-
-    <div class="game-area" id="gameArea"></div>
-
-    <script src="script.js"></script>
-  </body>
-</html>
+  learning: [
+    "https://www.youtube.com/embed/SjVb4NYCP70",   // Numbers 1‑20 – CoComelon :contentReference[oaicite:6]{index=6}
+    "https://www.youtube.com/embed/uCIsBFV87-U",   // ABC Song with Balloons – CoComelon :contentReference[oaicite:7]{index=7}
+    "https://www.youtube.com/embed/7i68cD70dEE",   // Learn Colors, ABCs & 123 + more :contentReference[oaicite:8]{index=8}
+    "https://www.youtube.com/embed/D0Ajq682yrA",   // Numbers Song with Little Chicks (alt link) :contentReference[oaicite:9]{index=9}
+    "https://www.youtube.com/embed/VISa8jBKuks",   // Once I Caught a Fish Alive – CoComelon (from search) :contentReference[oaicite:10]{index=10}
+    "https://www.youtube.com/embed/wOn7Gj3ltjI",   // Learn to Count 1‑20 – toddler style :contentReference[oaicite:11]{index=11}
+    "https://www.youtube.com/embed/D0Ajq682yrA",   // Duplicate safe fallback
+    "https://www.youtube.com/embed/SjVb4NYCP70",   // Repeat fallback
+    "https://www.youtube.com/embed/7i68cD70dEE",   // Repeat fallback
+    "https://www.youtube.com/embed/a9PpVo6b7z0"    // Numbers with chicks again :contentReference[oaicite:12]{index=12}
+  ]
+};
