@@ -245,3 +245,69 @@ h1 {
     transform: scale(1);
   }
 }
+/* Game Styling */
+.color-box {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.shape {
+  width: 80px;
+  height: 80px;
+  background-color: #ffcc80;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#alphabetBox {
+  display: inline-block;
+  font-size: 3rem;
+  margin: 10px;
+  padding: 10px;
+  background: #fff176;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px #00000033;
+}
+
+.colorful-alert {
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 15px;
+  width: fit-content;
+  margin: 15px auto;
+  animation: popIn 0.3s ease-out;
+}
+
+.colorful-alert.success {
+  background: #c8e6c9;
+  color: #2e7d32;
+  border: 2px solid #81c784;
+}
+
+.colorful-alert.error {
+  background: #ffcdd2;
+  color: #c62828;
+  border: 2px solid #e57373;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
