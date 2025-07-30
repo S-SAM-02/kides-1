@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FunTube for Kids</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"
@@ -9,16 +10,27 @@
     />
     <style>
       body {
-        background-color: #ffe4f2;
+        background: linear-gradient(to right, #ffe4f2, #d1faff);
         font-family: "Baloo 2", cursive;
-        text-align: center;
         color: #333;
+        text-align: center;
+        margin: 0;
+        padding: 0;
       }
 
       h1 {
         color: #ff4081;
         font-size: 3rem;
-        margin-top: 20px;
+        margin: 20px 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+        background: linear-gradient(to right, #ff416c, #ff4b2b);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 1px 1px 2px #ffb3b3;
+        margin-top: 30px;
       }
 
       #aiAssistant {
@@ -26,7 +38,7 @@
         border-radius: 20px;
         width: 80%;
         max-width: 600px;
-        margin: 20px auto;
+        margin: 10px auto;
         padding: 20px;
         box-shadow: 0 0 15px #b2ebf2;
       }
@@ -42,12 +54,16 @@
         color: #00796b;
       }
 
+      .game-area,
       #chatbox {
-        margin-top: 20px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
       }
 
       button {
-        margin: 10px;
         padding: 14px 30px;
         font-size: 1.2rem;
         border-radius: 12px;
@@ -63,99 +79,220 @@
       }
 
       iframe {
-        margin: 15px;
+        margin: 10px;
         border: 4px solid #f06292;
         border-radius: 15px;
+      }
+
+      img.logo {
+        width: 160px;
+        margin-top: 20px;
+      }
+
+      #gameArea {
+        margin-top: 20px;
+        min-height: 150px;
+      }
+
+      .color-box {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        border-radius: 12px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
+
+      .shape {
+        width: 80px;
+        height: 80px;
+        margin: 10px;
+        background-color: #ffcc80;
+        display: inline-block;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      #alphabetBox {
+        display: inline-block;
+        font-size: 2rem;
+        margin: 10px;
+        padding: 15px;
+        background: #fceabb;
+        border-radius: 15px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+
+      .colorful-alert {
+        font-weight: bold;
+        padding: 10px 15px;
+        margin: 20px auto;
+        display: inline-block;
+        border-radius: 10px;
+      }
+
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 2px solid #c3e6cb;
+      }
+
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 2px solid #f5c6cb;
       }
     </style>
   </head>
   <body>
-    <script src="script.js"></script>
-
     <h1>🎉 Welcome to FunTube for Kids! 🎉</h1>
 
-    <!-- Place this just after <body> -->
-    <div id="menuBar">
-      <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
-      <div id="sideMenu" class="hidden"></div>
-    </div>
-
-    <!-- Add this before </body> -->
-    <script>
-      function toggleMenu() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("hidden");
-      }
-    </script>
-
-    <!-- AI Assistant Visual -->
+    <!-- Panda Assistant -->
     <div id="aiAssistant">
       <img src="panda.png" alt="Panda Buddy" />
       <p id="aiText">Star's What do you want to watch today?</p>
     </div>
 
-    <!-- Voice Playback -->
     <audio id="pandaVoice" autoplay>
       <source src="voice.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
 
-    <!-- AI Buttons -->
+    <!-- YouTube Buttons -->
     <div id="chatbox">
       <button onclick="respond('cartoons')">Cartoons</button>
       <button onclick="respond('rhymes')">Rhymes</button>
       <button onclick="respond('learning')">Learning</button>
     </div>
 
-    <!-- Videos Will Appear Here -->
+    <!-- YouTube Videos -->
     <div id="videoArea"></div>
 
+    <img src="kids-fun.png" alt="Kids having fun" class="logo" />
+
+    <!-- Game Section Starts -->
+    <h2>Play Fun Games</h2>
+
+    <div class="game-area">
+      <button onclick="playColorMatch()">Color Match</button>
+      <button onclick="playShapePop()">Shape Pop</button>
+      <button onclick="playAnimalQuiz()">Animal Quiz</button>
+    </div>
+
+    <div id="gameArea"></div>
+    <div id="alertBox"></div>
+
+    <!-- JS Code -->
     <script>
-      function toggleMenu() {
-        const menu = document.getElementById("sideMenu");
-        menu.classList.toggle("hidden");
+      function showAlert(message, type = "success") {
+        const alertBox = document.getElementById("alertBox");
+        alertBox.innerHTML = `<div class="colorful-alert ${type}">${message}</div>`;
+        setTimeout(() => (alertBox.innerHTML = ""), 2000);
       }
 
-      // Video links for each category
+      function clearGameArea() {
+        document.getElementById("gameArea").innerHTML = "";
+      }
+
+      function playColorMatch() {
+        clearGameArea();
+        const colors = ["red", "green", "blue", "yellow", "purple"];
+        const correct = colors[Math.floor(Math.random() * colors.length)];
+        const area = document.getElementById("gameArea");
+        area.innerHTML = `<h2>Click the <span style='color:${correct};text-shadow:1px 1px #000'>${correct}</span> box!</h2>`;
+        colors.forEach((color) => {
+          const box = document.createElement("div");
+          box.className = "color-box";
+          box.style.backgroundColor = color;
+          box.onclick = () => {
+            if (color === correct) {
+              showAlert("Correct! Great job!", "success");
+              setTimeout(playColorMatch, 1500);
+            } else {
+              showAlert(`Oops! It was ${correct}. Try again!`, "error");
+            }
+          };
+          area.appendChild(box);
+        });
+      }
+
+      function playShapePop() {
+        clearGameArea();
+        const shapes = ["circle", "square", "triangle"];
+        const correct = shapes[Math.floor(Math.random() * shapes.length)];
+        const area = document.getElementById("gameArea");
+        area.innerHTML = `<h2>Pop the <span style='color:#ff4081'>${correct}</span> shape!</h2>`;
+        shapes.forEach((shape) => {
+          const div = document.createElement("div");
+          div.className = "shape";
+          if (shape === "square") div.style.borderRadius = "0%";
+          if (shape === "triangle") {
+            div.style.width = "0";
+            div.style.height = "0";
+            div.style.borderLeft = "40px solid transparent";
+            div.style.borderRight = "40px solid transparent";
+            div.style.borderBottom = "80px solid #ffcc80";
+            div.style.backgroundColor = "transparent";
+          }
+          div.onclick = () => {
+            if (shape === correct) {
+              showAlert("Yay! You popped the right shape!", "success");
+              setTimeout(playShapePop, 1500);
+            } else {
+              showAlert(`Oops! It was a ${correct}. Try again!`, "error");
+            }
+          };
+          area.appendChild(div);
+        });
+      }
+
+      function playAnimalQuiz() {
+        clearGameArea();
+        const animals = ["Cat", "Dog", "Elephant", "Lion"];
+        const correct = animals[Math.floor(Math.random() * animals.length)];
+        const area = document.getElementById("gameArea");
+        area.innerHTML = `<h2>Guess the animal!</h2>`;
+        animals.forEach((animal) => {
+          const btn = document.createElement("button");
+          btn.textContent = animal;
+          btn.onclick = () => {
+            if (animal === correct) {
+              showAlert("Roar! You got it!", "success");
+              setTimeout(playAnimalQuiz, 1500);
+            } else {
+              showAlert(`Nope, it was ${correct}. Try again!`, "error");
+            }
+          };
+          area.appendChild(btn);
+        });
+      }
+
       const videoLinks = {
         cartoons: [
-          "https://www.youtube.com/embed/MtN1YnoL46Q", // Peppa Pig – Balloon Ride
-          "https://www.youtube.com/embed/2S__fbCGwOM", // Masha & The Bear – Recipe Disaster
-          "https://www.youtube.com/embed/9xv-FjbXaqk", // Paw Patrol – Pups Save the Penguins
-          "https://www.youtube.com/embed/2Xc9gXyf2G4", // CoComelon – Yes Yes Vegetables
+          "https://www.youtube.com/embed/MtN1YnoL46Q",
+          "https://www.youtube.com/embed/2S__fbCGwOM",
+          "https://www.youtube.com/embed/9xv-FjbXaqk",
+          "https://www.youtube.com/embed/2Xc9gXyf2G4",
         ],
-
         rhymes: [
-          "https://www.youtube.com/embed/yCjJyiqpAuU", // Baby Shark Dance – Pinkfong
-          "https://www.youtube.com/embed/75p-N9YKqNo", // Johny Johny Yes Papa
-          "https://www.youtube.com/embed/0peZ5AN5vs8", // Five Little Ducks – Super Simple
-          "https://www.youtube.com/embed/SjVb4NYCP70", // Numbers 1‑20 – CoComelon :contentReference[oaicite:0]{index=0}
-          "https://www.youtube.com/embed/uCIsBFV87-U", // ABC Song with Balloons – CoComelon :contentReference[oaicite:1]{index=1}
-          "https://www.youtube.com/embed/a9PpVo6b7z0", // Numbers Song with Little Chicks – CoComelon :contentReference[oaicite:2]{index=2}
-          "https://www.youtube.com/embed/8qvHQIJ4Y3k", // Peek A Boo + more – CoComelon :contentReference[oaicite:4]{index=4}
-          "https://www.youtube.com/embed/7i68cD70dEE", // Learn Colors, ABCs & 123 + more :contentReference[oaicite:5]{index=5}
+          "https://www.youtube.com/embed/yCjJyiqpAuU",
+          "https://www.youtube.com/embed/75p-N9YKqNo",
+          "https://www.youtube.com/embed/0peZ5AN5vs8",
+          "https://www.youtube.com/embed/SjVb4NYCP70",
         ],
-
         learning: [
-          "https://www.youtube.com/embed/SjVb4NYCP70", // Numbers 1‑20 – CoComelon :contentReference[oaicite:6]{index=6}
-          "https://www.youtube.com/embed/uCIsBFV87-U", // ABC Song with Balloons – CoComelon :contentReference[oaicite:7]{index=7}
-          "https://www.youtube.com/embed/7i68cD70dEE", // Learn Colors, ABCs & 123 + more :contentReference[oaicite:8]{index=8}
-          "https://www.youtube.com/embed/D0Ajq682yrA", // Numbers Song with Little Chicks (alt link) :contentReference[oaicite:9]{index=9}
-          "https://www.youtube.com/embed/VISa8jBKuks", // Once I Caught a Fish Alive – CoComelon (from search) :contentReference[oaicite:10]{index=10}
-          "https://www.youtube.com/embed/wOn7Gj3ltjI", // Learn to Count 1‑20 – toddler style :contentReference[oaicite:11]{index=11}
-          "https://www.youtube.com/embed/D0Ajq682yrA", // Duplicate safe fallback
-          "https://www.youtube.com/embed/SjVb4NYCP70", // Repeat fallback
-          "https://www.youtube.com/embed/7i68cD70dEE", // Repeat fallback
-          "https://www.youtube.com/embed/a9PpVo6b7z0", // Numbers with chicks again :contentReference[oaicite:12]{index=12}
+          "https://www.youtube.com/embed/uCIsBFV87-U",
+          "https://www.youtube.com/embed/7i68cD70dEE",
+          "https://www.youtube.com/embed/D0Ajq682yrA",
+          "https://www.youtube.com/embed/VISa8jBKuks",
         ],
       };
 
       function respond(type) {
         const chatText = document.getElementById("aiText");
         const videoArea = document.getElementById("videoArea");
-
         chatText.innerText = `Yay! Let's watch some ${type}! 🎬`;
-
         videoArea.innerHTML = "";
         videoLinks[type].forEach((link) => {
           const iframe = document.createElement("iframe");
@@ -167,38 +304,5 @@
         });
       }
     </script>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FunTube Games</title>
-        <link rel="stylesheet" href="style.css" />
-      </head>
-      <body>
-        <img
-          src="kids-fun.png"
-          alt="Kids having fun"
-          style="width: 160px; margin-top: 60px"
-        />
-        <h2>Play Fun Games</h2>
-        <div class="game-area">
-          <button class="game-btn" onclick="playColorMatch()">
-            Color Match
-          </button>
-          <button class="game-btn" onclick="playShapePop()">Shape Pop</button>
-          <button class="game-btn" onclick="playAlphabetCatcher()">
-            Alphabet Catcher
-          </button>
-          <button class="game-btn" onclick="playAnimalQuiz()">
-            Animal Quiz
-          </button>
-        </div>
-
-        <div id="gameArea"></div>
-        <div id="alertBox"></div>
-
-        <script src="script.js"></script>
-      </body>
-    </html>
   </body>
 </html>
