@@ -266,16 +266,19 @@ h1 {
   margin: 10px;
   cursor: pointer;
 }
-
-#alphabetBox {
+.alphabet-box {
   display: inline-block;
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 10px;
-  padding: 10px;
-  background: #fff176;
+  padding: 20px;
+  background: #fff9c4;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 1px 1px 4px #00000033;
+  width: 60px;
+  height: 60px;
+  line-height: 1;
+  text-align: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .colorful-alert {
